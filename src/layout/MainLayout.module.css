@@ -1,0 +1,33 @@
+.layout {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.layout__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  height: 80;
+  background-color: rgb(59 162 255);
+}
+
+.layout__content {
+  padding: 24px;
+  background-color: rgb(241 241 241);
+}
+
+.layout__section {
+  padding: 24px;
+  color: #000;
+  background-color: rgb(255 255 255);
+}
+
+.layout__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  column-gap: 12px;
+  align-items: center;
+  border-top: 1px solid rgba(5, 5, 5, 0.06);
+}
