@@ -1,12 +1,14 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 
+import styles from "./index.module.css";
+
 const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <section className="center-page">
+      <section className={styles.content}>
         <Result
           status="404"
           title="404"
