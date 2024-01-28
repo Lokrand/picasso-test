@@ -1,12 +1,12 @@
 import { Layout, Typography } from "antd";
 import { Outlet } from "react-router-dom";
 
-import styles from "./MainLayout.module.css";
+import styles from "./styles/layout.module.css";
 
 const { Header, Content, Footer } = Layout;
 const { Text, Title } = Typography;
 
-const MainLayout = () => {
+const RootLayout = () => {
   return (
     <Layout className={styles.layout}>
       <Header className={styles.layout__header}>
@@ -25,4 +25,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default RootLayout;

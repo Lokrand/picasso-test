@@ -1,78 +1,128 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-empty */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Button, Divider, List, Skeleton, Typography } from "antd";
-import { postsApi } from "../../services/rtk-query/posts/posts";
-import { IPost } from "../../services/rtk-query/posts/posts";
+import { Button, List, Typography } from "antd";
+import VirtualList from "rc-virtual-list";
+import { postsApi } from "../../shared/api/posts/posts";
+import { IPost } from "../../shared/api/posts/posts";
 import { useNavigate } from "react-router-dom";
 
 const { Text } = Typography;
 
+const ContainerHeight = 400;
+
 export const MainPage = () => {
   const navigate = useNavigate();
+  const [data, setData] = useState<IPost[] | undefined>([]);
   const [getPosts, getPostsResult] = postsApi.useLazyFetchPostsQuery({});
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<IPost[]>([]);
+  const [handleScroll, setHandleScroll] = useState(false);
+  const [isAppendData, setIsAppendData] = useState(false);
 
-  const loadMoreData = () => {
-    // if (loading) {
-    //   return;
-    // }
-    // setLoading(true);
-    getPosts({ page });
-    setPage(page + 1);
-    // setLoading(false);
+  const appendData = () => {
+    setHandleScroll(true);
+    if (getPostsResult) {
+      if (data?.length == 20) {
+        setData((prevState) => {
+          const splicedData = prevState?.slice(10, 20);
+
+          return splicedData?.concat(getPostsResult?.data);
+        });
+      } else {
+        setData(data?.filter((el) => el).concat(getPostsResult?.data));
+      }
+    }
+  };
+
+  const prependData = () => {
+    setHandleScroll(true);
+    if (getPostsResult) {
+      setData((prevState) => {
+        const splicesData = prevState?.slice(0, 10);
+
+        return getPostsResult?.data?.concat(splicesData);
+      });
+    }
   };
 
   useEffect(() => {
-    if (getPostsResult.data) {
-      console.log(getPostsResult.data);
-      const slicedData = data.slice(0, 10 * page);
-      setData([...slicedData, ...getPostsResult.data]);
-    }
-  }, [getPostsResult]);
-
-  // console.log("data", data);
-
-  useEffect(() => {
-    loadMoreData();
+    getPosts({ page: 1 });
+    // setPage(page + 1);
+    // appendData();
   }, []);
 
+  useEffect(() => {
+    if (isAppendData) {
+      appendData();
+    } else {
+      prependData();
+    }
+  }, [getPostsResult, page]);
+
+  console.log(getPostsResult);
+
+  const onScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
+    if (
+      Math.abs(
+        e.currentTarget.scrollHeight -
+          e.currentTarget.scrollTop -
+          ContainerHeight
+      ) >= 872 &&
+      page >= 1
+    ) {
+      setIsAppendData(false);
+      setPage(page - 1);
+      setHandleScroll(true);
+      getPosts({ page });
+      // prependData();
+    } else if (
+      Math.abs(
+        e.currentTarget.scrollHeight -
+          e.currentTarget.scrollTop -
+          ContainerHeight
+      ) <= 1 &&
+      // т.к. с бека не приходит количество всех элементов, то ограничиваю сам на 10 страниц
+      // чтобы исключить "пустые" запросы на бек
+      page <= 10
+    ) {
+      setIsAppendData(true);
+      setPage(page + 1);
+      setHandleScroll(true);
+      getPosts({ page });
+      // appendData();
+    }
+  };
+
   return (
-    <div
-      id="scrollableDiv"
-      style={{
-        height: 400,
-        overflow: "auto",
-        padding: "0 16px",
-        border: "1px solid rgba(140, 140, 140, 0.35)",
-      }}
-    >
-      <InfiniteScroll
-        dataLength={data.length}
-        next={loadMoreData}
-        hasMore={data.length < 100}
-        loader={<Skeleton avatar paragraph={{ rows: 1 }} active />}
-        endMessage={<Divider plain>Это всё, больше постов нет.</Divider>}
-        scrollableTarget="scrollableDiv"
+    <List>
+      <VirtualList
+        data={data?.filter((el) => el)}
+        height={ContainerHeight}
+        itemHeight={47}
+        itemKey="id"
+        onScroll={onScroll}
+        ref={(element) => {
+          if (element && handleScroll && data?.length > 10) {
+            console.log(element.getScrollInfo());
+            element.scrollTo(400);
+            setHandleScroll(false);
+          }
+        }}
       >
-        <List
-          dataSource={data}
-          renderItem={(el) => (
-            <List.Item key={el.id}>
-              <List.Item.Meta
-                title={<Text>{`${el.id}. ${el.title}`}</Text>}
-                description={el.body}
-              />
-              <Button onClick={() => navigate(`/posts/${el.id}`)}>
-                Просмотр
-              </Button>
-            </List.Item>
-          )}
-        />
-      </InfiniteScroll>
-    </div>
+        {(el: IPost | undefined) => (
+          <List.Item key={el?.id}>
+            <List.Item.Meta
+              title={<Text>{`${el?.id}. ${el?.title}`}</Text>}
+              description={el?.body}
+            />
+            <Button onClick={() => navigate(`/posts/${el.id}`)}>
+              Просмотр
+            </Button>
+          </List.Item>
+        )}
+      </VirtualList>
+    </List>
   );
 };

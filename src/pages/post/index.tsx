@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
-import { postsApi } from "../../services/rtk-query/posts/posts";
-import { usersApi } from "../../services/rtk-query/users/users";
+import { postsApi } from "../../shared/api/posts/posts";
+import { usersApi } from "../../shared/api/users/users";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button, Divider, Flex, Result, Row, Spin, Typography } from "antd";
 
