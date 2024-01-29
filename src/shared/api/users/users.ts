@@ -1,5 +1,5 @@
 import { api } from "..";
-import { IUser, IFetchUser } from "./users";
+import { IUser, IFetchUser } from "./users.d";
 
 export const usersApi = api.injectEndpoints({
   endpoints: (build) => ({

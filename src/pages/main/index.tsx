@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const ContainerHeight = 400;
 
-export const MainPage: React.FC = () => {
+const MainPage = () => {
   const navigate = useNavigate();
   const [getPosts, postsResult] = postsApi.useLazyFetchPostsQuery({});
   const [page, setPage] = useState(1);
@@ -73,3 +73,5 @@ export const MainPage: React.FC = () => {
     </List>
   );
 };
+
+export default MainPage;

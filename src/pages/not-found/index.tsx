@@ -7,20 +7,18 @@ const NotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <section className={styles.content}>
-        <Result
-          status="404"
-          title="404"
-          subTitle="Извините, скорее всего такой страницы не существует"
-          extra={
-            <Button type="primary" onClick={() => navigate("/")}>
-              Перейти на главную
-            </Button>
-          }
-        />
-      </section>
-    </>
+    <section className={styles.content}>
+      <Result
+        status="404"
+        title="404"
+        subTitle="Извините, скорее всего такой страницы не существует"
+        extra={
+          <Button type="primary" onClick={() => navigate("/")}>
+            Перейти на главную
+          </Button>
+        }
+      />
+    </section>
   );
 };
 

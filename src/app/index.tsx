@@ -1,11 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Route, Routes } from "react-router-dom";
 import RootLayout from "./layout";
-import { MainPage } from "../pages/main";
-import { PostPage } from "../pages/post";
+import MainPage from "../pages/main";
+import PostPage from "../pages/post";
 import NotFoundPage from "../pages/not-found";
-import "./styles/normalize.css";
 import { withProviders } from "./providers";
+
+import "./styles/normalize.css";
 
 const App = () => {
   return (
