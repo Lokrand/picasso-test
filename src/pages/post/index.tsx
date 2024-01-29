@@ -32,7 +32,7 @@ const PostPage = () => {
         <>
           <Button
             icon={<ArrowLeftOutlined />}
-            onClick={() => navigate("/picasso-test")}
+            onClick={() => navigate("/picasso-test/")}
           >
             Назад
           </Button>
@@ -49,7 +49,7 @@ const PostPage = () => {
           title="Пост не найден"
           subTitle="Извините, возникли неполадки с сервером"
           extra={
-            <Button type="primary" onClick={() => navigate("/picasso-test")}>
+            <Button type="primary" onClick={() => navigate("/picasso-test/")}>
               Перейти на главную
             </Button>
           }
