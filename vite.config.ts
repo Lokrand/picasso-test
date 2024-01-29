@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   // base: "/picasso-test/"
-  base: "/",
+  base: "/picasso-test/",
   resolve: {
     alias: {
       "@shared": path.resolve(__dirname, ".src/shared"),
