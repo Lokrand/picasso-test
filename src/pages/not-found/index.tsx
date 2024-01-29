@@ -13,7 +13,7 @@ const NotFoundPage = () => {
         title="404"
         subTitle="Извините, скорее всего такой страницы не существует"
         extra={
-          <Button type="primary" onClick={() => navigate("/")}>
+          <Button type="primary" onClick={() => navigate("/picasso-test")}>
             Перейти на главную
           </Button>
         }

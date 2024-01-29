@@ -30,7 +30,10 @@ const PostPage = () => {
         </Row>
       ) : postData ? (
         <>
-          <Button icon={<ArrowLeftOutlined />} onClick={() => navigate("/")}>
+          <Button
+            icon={<ArrowLeftOutlined />}
+            onClick={() => navigate("/picasso-test")}
+          >
             Назад
           </Button>
           <Flex vertical>
@@ -46,7 +49,7 @@ const PostPage = () => {
           title="Пост не найден"
           subTitle="Извините, возникли неполадки с сервером"
           extra={
-            <Button type="primary" onClick={() => navigate("/")}>
+            <Button type="primary" onClick={() => navigate("/picasso-test")}>
               Перейти на главную
             </Button>
           }

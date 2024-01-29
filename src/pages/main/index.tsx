@@ -64,7 +64,7 @@ const MainPage = () => {
               title={<Text>{`${el?.id}. ${el?.title}`}</Text>}
               description={el?.body}
             />
-            <Button onClick={() => navigate(`/posts/${el?.id}`)}>
+            <Button onClick={() => navigate(`posts/${el?.id}`)}>
               Просмотр
             </Button>
           </List.Item>
