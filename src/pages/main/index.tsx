@@ -5,6 +5,8 @@ import { postsApi } from "../../shared/api/posts/posts";
 import { useNavigate } from "react-router-dom";
 import { IPost } from "../../shared/api/posts/posts.d";
 
+import styles from "./index.module.css";
+
 const { Text } = Typography;
 
 const ContainerHeight = 400;
@@ -50,7 +52,7 @@ const MainPage = () => {
   );
 
   return (
-    <List>
+    <List className={styles.list}>
       <VirtualList
         data={data}
         height={ContainerHeight}

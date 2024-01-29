@@ -18,8 +18,12 @@
 }
 
 .layout__section {
+  width: 800px;
+  max-height: 500px;
+  margin: 0 auto;
   padding: 24px;
   color: #000;
+  border-radius: 12px;
   background-color: rgb(255 255 255);
 }
 
