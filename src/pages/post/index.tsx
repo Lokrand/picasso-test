@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
 import { postsApi } from "../../shared/api/posts/posts";
@@ -8,10 +8,9 @@ import { Button, Divider, Flex, Result, Row, Spin, Typography } from "antd";
 
 const { Text, Title } = Typography;
 
-export const PostPage = () => {
+const PostPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [authorName, setAuthorName] = useState<string>("");
 
   const { data: postData, isLoading: isPostsLoading } =
     postsApi.useFetchOnePostQuery({ id });
@@ -22,12 +21,6 @@ export const PostPage = () => {
       fetchPostAuthor({ id: postData?.userId });
     }
   }, [postData]);
-
-  useEffect(() => {
-    setAuthorName(fetchAuthorResult?.data?.name);
-  }, [fetchAuthorResult]);
-
-  console.log(authorName);
 
   return (
     <>
@@ -62,3 +55,5 @@ export const PostPage = () => {
     </>
   );
 };
+
+export default PostPage;

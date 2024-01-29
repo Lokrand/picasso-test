@@ -1,5 +1,5 @@
 import { api } from "..";
-import { IPost, IFetchPostsParams, IFetchOnePost } from "./posts";
+import { IPost, IFetchPostsParams, IFetchOnePost } from "./posts.d";
 
 export const postsApi = api.injectEndpoints({
   endpoints: (build) => ({
