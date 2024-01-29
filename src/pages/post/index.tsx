@@ -13,7 +13,7 @@ const PostPage = () => {
   const { id } = useParams();
 
   const { data: postData, isLoading: isPostsLoading } =
-    postsApi.useFetchOnePostQuery({ id });
+    postsApi.useFetchOnePostQuery({ id: Number(id) });
   const [fetchPostAuthor, fetchAuthorResult] = usersApi.useLazyFetchUserQuery();
 
   useEffect(() => {
